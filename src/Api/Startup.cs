@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using Data;
 using Data.Mappings;
+using Api.Mappers;
 
 namespace Api
 {
@@ -39,6 +40,7 @@ namespace Api
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
+                mc.AddProfile(new MappingProfileApi());
             });
 
             var mapper = mapperConfig.CreateMapper();
@@ -47,7 +49,10 @@ namespace Api
 
         private void InitializeContainer()
         {
-            _container.Register<IRequestHandler<IEnumerable<ProductType>>, GetOrderTypes>();
+            _container.Register<IRequestHandler<IEnumerable<ProductType>>, GetAllOrderTypes>();
+            _container.Register<IRequestHandler<string, ProductType>, GetOrderType>();
+            _container.Register<IRequestHandler<Order, int>, CreateOrder>();
+            _container.Register<IRequestHandler<int, Order>, GetOrder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

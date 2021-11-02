@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Core.Models;
 
 namespace Core.Repositories
 {
     public interface IOrderRepository
     {
-        Task<IEnumerable<ProductType>> GetProductTypesAsync();
+        Task<int> CreateOrderAsync(Order order);
+
+        Task<Order> GetOrderAsync(int id);
+
+        Task<int> AddOrderLineToOrder(int orderId, OrderLine orderLine);
     }
 }

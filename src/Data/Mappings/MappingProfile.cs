@@ -8,11 +8,13 @@ namespace Data.Mappings
         public MappingProfile()
         {
             CreateMap<ProductType, Entities.ProductType>();
-            CreateMap<OrderLine, Entities.Order>();
-            CreateMap<Order, Entities.Order>();
+            CreateMap<OrderLine, Entities.OrderLine>()
+                .ForMember(x => x.ProductType, opt => opt.Ignore());
+            CreateMap<Order, Entities.Order>()
+                .ForMember(x => x.OrderLines, opt => opt.Ignore());
 
             CreateMap<Entities.ProductType, ProductType>();
-            CreateMap<Entities.OrderLine, Order>();
+            CreateMap<Entities.OrderLine, OrderLine>();
             CreateMap<Entities.Order, Order>();
         }
     }

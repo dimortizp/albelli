@@ -16,6 +16,7 @@ namespace Data
             serviceCollection.AddDbContext<OrderManagerContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            container.Register<IOrderTypeRepository, OrderTypeRepository>();
             container.Register<IOrderRepository, OrderRepository>();
         }
     }

@@ -5,7 +5,8 @@ namespace Core.Models
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
+        public int ProductTypeId { get; set; }
 
-        public virtual ProductType ProductType { get; set; }
+        public ProductType ProductType { get; set; }
     }
 }
