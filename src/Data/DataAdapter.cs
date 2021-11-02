@@ -1,21 +1,22 @@
-﻿
+﻿using AutoMapper;
+using Core.Repositories;
+using Data.Infrastructure;
+using Data.Mappings;
+using Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
-using System.Data;
-using System.Data.Common;
 
 namespace Data
 {
     public static class DataAdapter
     {
-        public static void RegisterPersistence(this Container container, string connectionString)
+        public static void RegisterPersistence(this IServiceCollection serviceCollection, Container container, string connectionString)
         {
-            DbProviderFactories.RegisterFactory("System.Data.SqlClient", System.Data.SqlClient.SqlClientFactory.Instance);
+            serviceCollection.AddDbContext<OrderManagerContext>(options =>
+                options.UseSqlServer(connectionString));
 
-            var dbFactory = DbProviderFactories.GetFactory("System.Data.SqlClient");
-            var connection = dbFactory.CreateConnection();
-            connection.ConnectionString = connectionString;
-
-            container.RegisterInstance<IDbConnection>(connection);
+            container.Register<IOrderRepository, OrderRepository>();
         }
     }
 }
