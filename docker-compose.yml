@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+    web:
+        build: .
+        ports:
+            - "8000:80"
+        depends_on:
+            - db
+        environment: 
+            - logger.level=DEBUG
+    db:
+        image: "mcr.microsoft.com/mssql/server"
+        environment:
+            SA_PASSWORD: "_Password**98"
+            ACCEPT_EULA: "Y"

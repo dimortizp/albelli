@@ -1,6 +1,6 @@
 using System;
 
-namespace OrderManager.Api
+namespace Api
 {
     public class WeatherForecast
     {

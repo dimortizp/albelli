@@ -3,9 +3,8 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace OrderManager.Api.Controllers
+namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
