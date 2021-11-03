@@ -20,12 +20,18 @@ namespace Core.UseCases
 
         public async Task<int> HandleAsync(Order order)
         {
+            if (order == null) throw new ArgumentNullException(nameof(order));
+
             var orderId = await _orderRepository.CreateOrderAsync(order);
-            foreach(var orderLine in order.OrderLines)
+            if(order.OrderLines != null)
             {
-                var orderType = await _orderTypeRepository.GetProductTypeAsync(orderLine.ProductType.Name);
-                orderLine.ProductTypeId = orderType.Id;
-                var _ = await _orderRepository.AddOrderLineToOrder(orderId, orderLine);
+                foreach(var orderLine in order.OrderLines)
+                {
+                    if (orderLine.Quantity <= 0) continue;
+                    var orderType = await _orderTypeRepository.GetProductTypeAsync(orderLine.ProductType.Name);
+                    orderLine.ProductTypeId = orderType.Id;
+                    var _ = await _orderRepository.AddOrderLineToOrder(orderId, orderLine);
+                }
             }
             return orderId;
         }

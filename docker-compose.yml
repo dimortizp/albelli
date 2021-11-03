@@ -10,8 +10,6 @@ services:
             - logger.level=DEBUG
     db:
         image: "mcr.microsoft.com/mssql/server"
-        ports:
-            - 1401:1433
         environment:
             SA_PASSWORD: "_Password**98"
             ACCEPT_EULA: "Y"
